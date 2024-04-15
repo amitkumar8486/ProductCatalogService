@@ -2,6 +2,9 @@ package com.amit.ecommerce.controllers;
 
 import com.amit.ecommerce.dtos.ProductDto;
 import com.amit.ecommerce.models.Product;
+import com.amit.ecommerce.services.IProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,25 +16,35 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
+   private IProductService productService;
+   public ProductController(IProductService productService) {
+       this.productService = productService;
+   }
+
     /*
     The path is '/products'. This is the beauty of @RequestMapping.
      */
     @GetMapping()
     public List<Product> getAllProducts(){
-        return null;
+        return productService.getAllProducts();
     }
 
     /*
     The path is '/products/{id}'.
      */
     @GetMapping("{id}")
-    public Product getProduct(@PathVariable("id") Long productId){
-        Product product = new Product();
-        product.setId(productId);
-        product.setName("Iphone");
-        product.setPrice(100000D);
-        return product;
+    public ResponseEntity<Product> getProduct(@PathVariable("id") Long productId){
 
+        try {
+            if(productId < 1) {
+                throw new IllegalArgumentException("id is invalid");
+            }
+            Product product = productService.getProduct(productId);
+            return new ResponseEntity<>(product, HttpStatus.OK);
+
+        } catch(Exception ex) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     /*
@@ -40,8 +53,8 @@ public class ProductController {
     That is why we pass productDto not the product object.
      */
     @PostMapping
-    public ProductDto createProduct(@RequestBody ProductDto productDto){
-        return productDto;
+    public Product createProduct(@RequestBody ProductDto productDto){
+        return productService.createProduct(productDto);
     }
 
 }

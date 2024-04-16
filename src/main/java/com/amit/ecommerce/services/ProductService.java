@@ -67,6 +67,28 @@ public class ProductService implements IProductService{
     }
 
     /**
+     * Delete a product.
+     * @param productId product ID to be deleted.
+     */
+    @Override
+    public void deleteProduct(Long productId) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        restTemplate.delete("https://fakestoreapi.com/products/{id}",productId);
+
+    }
+
+    /**
+     * Update a product.
+     * @param productDto
+     * @param productId
+     */
+    @Override
+    public void updateProduct(ProductDto productDto, Long productId) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        restTemplate.put("https://fakestoreapi.com/products/{id}",productDto,productId);
+    }
+
+    /**
      * Get the product from Fake API and store in our product object.
      * @param fakeStoreProductDto from API.
      * @return product

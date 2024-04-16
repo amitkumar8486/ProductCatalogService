@@ -57,4 +57,14 @@ public class ProductController {
         return productService.createProduct(productDto);
     }
 
+    @DeleteMapping("{id}")
+    public void deleteProduct(@PathVariable("id") Long productId){
+        productService.deleteProduct(productId);
+    }
+
+    @PutMapping("{id}")
+    public void updateProduct(@PathVariable("id") Long productId,  @RequestBody ProductDto productDto){
+        productService.updateProduct(productDto,productId);
+    }
+
 }

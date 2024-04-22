@@ -54,17 +54,35 @@ public class ProductController {
      */
     @PostMapping
     public Product createProduct(@RequestBody ProductDto productDto){
-        return productService.createProduct(productDto);
-    }
-
-    @DeleteMapping("{id}")
-    public void deleteProduct(@PathVariable("id") Long productId){
-        productService.deleteProduct(productId);
+        return productService.createProduct(getProduct(productDto));
     }
 
     @PutMapping("{id}")
-    public void updateProduct(@PathVariable("id") Long productId,  @RequestBody ProductDto productDto){
-        productService.updateProduct(productDto,productId);
+    public Product replaceProduct(@PathVariable("id") Long id,@RequestBody ProductDto productDto) {
+        return productService.updateProduct(id,getProduct(productDto));
+    }
+/*
+client -> dto to controller
+controller -> product to service
+service -> fakeDto to FakeStoreApi
+FakeStoreApi -> fakeDto to service
+service -> product to controller
+controller -> product to client.
+ */
+    /**
+     * Mapper method: client send productDto object and receive product object.
+     * @param productDto
+     * @return product obj.
+     */
+    private Product getProduct(ProductDto productDto) {
+        Product product = new Product();
+        product.setId(productDto.getId());
+        product.setName(productDto.getName());
+        product.setPrice(productDto.getPrice());
+        product.setImageUrl(productDto.getImageUrl());
+        product.setDescription(productDto.getDescription());
+        product.setCategory(productDto.getCategory());
+        return product;
     }
 
 }

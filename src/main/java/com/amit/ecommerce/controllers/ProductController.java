@@ -1,6 +1,7 @@
 package com.amit.ecommerce.controllers;
 
 import com.amit.ecommerce.dtos.ProductDto;
+import com.amit.ecommerce.models.Category;
 import com.amit.ecommerce.models.Product;
 import com.amit.ecommerce.services.IProductService;
 import jakarta.transaction.Transactional;
@@ -78,7 +79,12 @@ controller -> product to client.
         product.setPrice(productDto.getPrice());
         product.setImageUrl(productDto.getImageUrl());
         product.setDescription(productDto.getDescription());
-        product.setCategory(productDto.getCategory());
+        Category category = new Category();
+        if(productDto.getCategoryDto() != null) {
+            category.setId(productDto.getCategoryDto().getId());
+            category.setName(productDto.getCategoryDto().getName());
+        }
+        product.setCategory(category);
         return product;
     }
 

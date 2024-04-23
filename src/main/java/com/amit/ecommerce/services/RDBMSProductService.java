@@ -30,8 +30,7 @@ public class RDBMSProductService implements IProductService{
 
     @Override
     public Product createProduct(Product product) {
-        Product createdProduct = productRepo.save(product);
-        return createdProduct;
+        return productRepo.save(product);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.amit.ecommerce.services;
 
 import com.amit.ecommerce.models.Product;
 import com.amit.ecommerce.repositories.ProductRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 @Primary
 @Service
+@Transactional // helps to delete data
 public class RDBMSProductService implements IProductService{
     private ProductRepo productRepo;
     public RDBMSProductService(ProductRepo productRepo) {
@@ -17,7 +19,7 @@ public class RDBMSProductService implements IProductService{
     }
     @Override
     public List<Product> getAllProducts() {
-        return List.of();
+        return productRepo.findAll();
     }
 
     @Override
@@ -34,7 +36,7 @@ public class RDBMSProductService implements IProductService{
 
     @Override
     public void deleteProduct(Long productId) {
-
+        productRepo.deleteProductById(productId);
     }
 
     @Override

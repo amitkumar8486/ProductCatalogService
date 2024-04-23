@@ -3,6 +3,7 @@ package com.amit.ecommerce.controllers;
 import com.amit.ecommerce.dtos.ProductDto;
 import com.amit.ecommerce.models.Product;
 import com.amit.ecommerce.services.IProductService;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +52,11 @@ public class ProductController {
     @PutMapping("{id}")
     public Product replaceProduct(@PathVariable("id") Long id,@RequestBody ProductDto productDto) {
         return productService.updateProduct(id,getProduct(productDto));
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteProduct(@PathVariable("id") Long productId) {
+        productService.deleteProduct(productId);
     }
 /*
 client -> dto to controller

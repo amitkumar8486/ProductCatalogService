@@ -1,5 +1,6 @@
 package com.amit.ecommerce.services;
 
+import com.amit.ecommerce.clients.FakeStoreApiClient;
 import com.amit.ecommerce.dtos.FakeStoreProductDto;
 import com.amit.ecommerce.dtos.ProductDto;
 import com.amit.ecommerce.models.Category;
@@ -24,8 +25,11 @@ public class ProductService implements IProductService{
     Dependency injection.
      */
     private RestTemplateBuilder restTemplateBuilder;
-    public ProductService(RestTemplateBuilder restTemplateBuilder) {
+    private FakeStoreApiClient fakeStoreApiClient;
+
+    public ProductService(RestTemplateBuilder restTemplateBuilder, FakeStoreApiClient fakeStoreApiClient) {
         this.restTemplateBuilder = restTemplateBuilder;
+        this.fakeStoreApiClient = fakeStoreApiClient;
     }
     /*
     Spring Boot provides a convenient way to make HTTP requests through the use of the RestTemplate class.
@@ -55,8 +59,10 @@ public class ProductService implements IProductService{
      */
     @Override
     public Product getProduct(Long productId) {
-        RestTemplate restTemplate = restTemplateBuilder.build();
-        FakeStoreProductDto fakeStoreProductDto = restTemplate.getForEntity("https://fakestoreapi.com/products/{id}",FakeStoreProductDto.class,productId).getBody();
+        if(productId == 0){
+            throw new IllegalArgumentException("Invalid product id");
+        }
+        FakeStoreProductDto fakeStoreProductDto = fakeStoreApiClient.getProduct(productId);
         return getProduct(fakeStoreProductDto);
     }
 

@@ -33,18 +33,9 @@ public class ProductController {
     The path is '/products/{id}'.
      */
     @GetMapping("{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable("id") Long productId){
-
-        try {
-            if(productId < 1) {
-                throw new IllegalArgumentException("id is invalid");
-            }
-            Product product = productService.getProduct(productId);
-            return new ResponseEntity<>(product, HttpStatus.OK);
-
-        } catch(Exception ex) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<Product> getProduct(@PathVariable("id") Long productId) {
+        Product product = productService.getProduct(productId);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     /*

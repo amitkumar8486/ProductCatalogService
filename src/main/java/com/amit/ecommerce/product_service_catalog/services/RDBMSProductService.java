@@ -1,7 +1,7 @@
-package com.amit.ecommerce.services;
+package com.amit.ecommerce.product_service_catalog.services;
 
-import com.amit.ecommerce.models.Product;
-import com.amit.ecommerce.repositories.ProductRepo;
+import com.amit.ecommerce.product_service_catalog.models.Product;
+import com.amit.ecommerce.product_service_catalog.repositories.ProductRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;

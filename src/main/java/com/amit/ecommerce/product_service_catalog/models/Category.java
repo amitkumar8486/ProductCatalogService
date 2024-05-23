@@ -1,4 +1,4 @@
-package com.amit.ecommerce.models;
+package com.amit.ecommerce.product_service_catalog.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;

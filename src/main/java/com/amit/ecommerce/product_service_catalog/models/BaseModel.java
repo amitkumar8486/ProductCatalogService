@@ -1,4 +1,4 @@
-package com.amit.ecommerce.models;
+package com.amit.ecommerce.product_service_catalog.models;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

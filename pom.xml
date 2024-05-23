@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.amit</groupId>
-	<artifactId>ECommerce</artifactId>
+	<artifactId>ProductCatalogService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ECommerce</name>
 	<description>ECommerce</description>

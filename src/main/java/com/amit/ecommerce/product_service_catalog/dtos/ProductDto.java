@@ -1,7 +1,5 @@
-package com.amit.ecommerce.dtos;
+package com.amit.ecommerce.product_service_catalog.dtos;
 
-import com.amit.ecommerce.models.BaseModel;
-import com.amit.ecommerce.models.Category;
 import lombok.Getter;
 import lombok.Setter;
 

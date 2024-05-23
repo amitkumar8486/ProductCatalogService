@@ -1,4 +1,4 @@
-package com.amit.ecommerce.controllers;
+package com.amit.ecommerce.product_service_catalog.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

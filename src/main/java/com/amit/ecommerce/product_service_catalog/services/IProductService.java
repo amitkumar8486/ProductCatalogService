@@ -1,7 +1,6 @@
-package com.amit.ecommerce.services;
+package com.amit.ecommerce.product_service_catalog.services;
 
-import com.amit.ecommerce.dtos.ProductDto;
-import com.amit.ecommerce.models.Product;
+import com.amit.ecommerce.product_service_catalog.models.Product;
 
 import java.util.List;
 

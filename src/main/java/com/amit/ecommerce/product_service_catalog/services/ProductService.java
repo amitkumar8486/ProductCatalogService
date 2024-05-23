@@ -1,10 +1,9 @@
-package com.amit.ecommerce.services;
+package com.amit.ecommerce.product_service_catalog.services;
 
-import com.amit.ecommerce.clients.FakeStoreApiClient;
-import com.amit.ecommerce.dtos.FakeStoreProductDto;
-import com.amit.ecommerce.dtos.ProductDto;
-import com.amit.ecommerce.models.Category;
-import com.amit.ecommerce.models.Product;
+import com.amit.ecommerce.product_service_catalog.clients.FakeStoreApiClient;
+import com.amit.ecommerce.product_service_catalog.dtos.FakeStoreProductDto;
+import com.amit.ecommerce.product_service_catalog.models.Category;
+import com.amit.ecommerce.product_service_catalog.models.Product;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;

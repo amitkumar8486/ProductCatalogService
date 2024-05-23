@@ -1,7 +1,6 @@
-package com.amit.ecommerce.clients;
+package com.amit.ecommerce.product_service_catalog.clients;
 
-import com.amit.ecommerce.dtos.FakeStoreProductDto;
-import com.amit.ecommerce.models.Product;
+import com.amit.ecommerce.product_service_catalog.dtos.FakeStoreProductDto;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;

@@ -1,10 +1,9 @@
-package com.amit.ecommerce.controllers;
+package com.amit.ecommerce.product_service_catalog.controllers;
 
-import com.amit.ecommerce.dtos.ProductDto;
-import com.amit.ecommerce.models.Category;
-import com.amit.ecommerce.models.Product;
-import com.amit.ecommerce.services.IProductService;
-import jakarta.transaction.Transactional;
+import com.amit.ecommerce.product_service_catalog.dtos.ProductDto;
+import com.amit.ecommerce.product_service_catalog.models.Category;
+import com.amit.ecommerce.product_service_catalog.models.Product;
+import com.amit.ecommerce.product_service_catalog.services.IProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

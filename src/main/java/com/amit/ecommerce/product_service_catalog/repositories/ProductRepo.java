@@ -1,6 +1,6 @@
-package com.amit.ecommerce.repositories;
+package com.amit.ecommerce.product_service_catalog.repositories;
 
-import com.amit.ecommerce.models.Product;
+import com.amit.ecommerce.product_service_catalog.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

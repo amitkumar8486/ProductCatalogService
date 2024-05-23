@@ -34,3 +34,6 @@ build/
 
 ### Spring boot config file ###
 src/main/resources/application.properties
+
+### Ecommerce files ###
+src/main/resources/application.properties

@@ -15,4 +15,5 @@ public interface IProductService {
     Product createProduct(Product product);
     void deleteProduct(Long productId);
     Product updateProduct(Long id,Product product);
+    Product getProductDetails(Long productId, Long userId);
 }

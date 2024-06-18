@@ -21,6 +21,13 @@ public class ProductController {
    public ProductController(IProductService productService) {
        this.productService = productService;
    }
+    // TODO make return type to ProductDto
+   @GetMapping("{pid}/{uid}")
+   public Product getProductDetailsBasedOnUserScope(@PathVariable Long pid, @PathVariable Long uid){
+
+       Product product = productService.getProductDetails(pid, uid);
+       return product;
+   }
 
     /*
     The path is '/products'. This is the beauty of @RequestMapping.
@@ -44,11 +51,13 @@ public class ProductController {
     This value can only set by amazon admin.
     That is why we pass productDto not the product object.
      */
+    // TODO make return type to ProductDto
     @PostMapping
     public Product createProduct(@RequestBody ProductDto productDto){
         return productService.createProduct(getProduct(productDto));
     }
 
+    // TODO make return type to ProductDto
     @PutMapping("{id}")
     public Product replaceProduct(@PathVariable("id") Long id,@RequestBody ProductDto productDto) {
         return productService.updateProduct(id,getProduct(productDto));

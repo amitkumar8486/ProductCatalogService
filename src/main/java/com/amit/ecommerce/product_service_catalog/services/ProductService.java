@@ -4,7 +4,10 @@ import com.amit.ecommerce.product_service_catalog.clients.FakeStoreApiClient;
 import com.amit.ecommerce.product_service_catalog.dtos.FakeStoreProductDto;
 import com.amit.ecommerce.product_service_catalog.models.Category;
 import com.amit.ecommerce.product_service_catalog.models.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
@@ -17,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Primary
 @Service
 public class ProductService implements IProductService{
 
@@ -25,10 +29,12 @@ public class ProductService implements IProductService{
      */
     private RestTemplateBuilder restTemplateBuilder;
     private FakeStoreApiClient fakeStoreApiClient;
+    private RedisTemplate<String, Object> redisTemplate;
 
-    public ProductService(RestTemplateBuilder restTemplateBuilder, FakeStoreApiClient fakeStoreApiClient) {
+    public ProductService(RestTemplateBuilder restTemplateBuilder, FakeStoreApiClient fakeStoreApiClient, RedisTemplate<String,Object> redisTemplate) {
         this.restTemplateBuilder = restTemplateBuilder;
         this.fakeStoreApiClient = fakeStoreApiClient;
+        this.redisTemplate = redisTemplate;
     }
     /*
     Spring Boot provides a convenient way to make HTTP requests through the use of the RestTemplate class.
@@ -58,10 +64,29 @@ public class ProductService implements IProductService{
      */
     @Override
     public Product getProduct(Long productId) {
+
         if(productId == 0){
             throw new IllegalArgumentException("Invalid product id");
         }
-        FakeStoreProductDto fakeStoreProductDto = fakeStoreApiClient.getProduct(productId);
+
+        /* Check if product is in cache
+        *       return product
+        * else
+        *   call fakeStore fakeStoreApiClient
+        *   store cache and return*/
+
+        FakeStoreProductDto fakeStoreProductDto = null;
+        fakeStoreProductDto = (FakeStoreProductDto) redisTemplate.opsForHash().get("PRODUCTS", productId);
+
+        if(fakeStoreProductDto != null) { // found in cache
+            System.out.println("Found in cache");
+            return getProduct(fakeStoreProductDto);
+        }
+
+        // if not found in cache
+        fakeStoreProductDto = fakeStoreApiClient.getProduct(productId);
+        System.out.println("Called FakeStore");
+        redisTemplate.opsForHash().put("PRODUCTS",productId, fakeStoreProductDto);
         return getProduct(fakeStoreProductDto);
     }
 

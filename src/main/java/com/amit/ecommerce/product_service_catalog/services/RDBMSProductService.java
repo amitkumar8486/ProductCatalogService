@@ -12,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Optional;
 
-@Primary
 @Service
 @Transactional // helps to delete data
 public class RDBMSProductService implements IProductService{

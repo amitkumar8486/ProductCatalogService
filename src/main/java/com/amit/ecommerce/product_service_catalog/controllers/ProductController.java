@@ -42,8 +42,16 @@ public class ProductController {
      */
     @GetMapping("{id}")
     public ResponseEntity<Product> getProduct(@PathVariable("id") Long productId) {
-        Product product = productService.getProduct(productId);
-        return new ResponseEntity<>(product, HttpStatus.OK);
+        try{
+            if(productId < 1){
+                throw new IllegalArgumentException("Invalid product id");
+            }
+            Product product = productService.getProduct(productId);
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        } catch (Exception ex){
+            throw ex;
+        }
+
     }
 
     /*

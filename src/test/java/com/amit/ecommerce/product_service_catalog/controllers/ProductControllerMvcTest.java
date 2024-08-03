@@ -5,6 +5,8 @@ import com.amit.ecommerce.product_service_catalog.models.Product;
 import com.amit.ecommerce.product_service_catalog.services.IProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -16,6 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -29,6 +32,10 @@ class ProductControllerMvcTest {
     private IProductService productService;
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private ProductController productController;
+    @Captor
+    private ArgumentCaptor<Long> productIdCaptor;
 
     @Test
     public void Test_GetAllProducts_FetchSuccessfully() throws Exception {
@@ -86,6 +93,20 @@ class ProductControllerMvcTest {
             "id": 2
         }
         */
+    }
+
+    @Test
+    public void Test_ProductServiceCalledWithExceptedArgument_Successfully() {
+
+        // Arrange
+        Long productId = 1L;
+
+        // Act
+        productController.getProduct(productId);
+
+        // Assert
+        verify(productService).getProduct(productIdCaptor.capture());
+        assertEquals(productId, productIdCaptor.getValue());
     }
 
 }

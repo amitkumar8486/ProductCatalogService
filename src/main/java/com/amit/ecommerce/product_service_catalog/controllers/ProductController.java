@@ -4,6 +4,8 @@ import com.amit.ecommerce.product_service_catalog.dtos.ProductDto;
 import com.amit.ecommerce.product_service_catalog.models.Category;
 import com.amit.ecommerce.product_service_catalog.models.Product;
 import com.amit.ecommerce.product_service_catalog.services.IProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +19,12 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
+    @Autowired
+    @Qualifier("productServiceStub")
    private IProductService productService;
-   public ProductController(IProductService productService) {
-       this.productService = productService;
-   }
+//   public ProductController(IProductService productService) {
+//       this.productService = productService;
+//   }
     // TODO make return type to ProductDto
    @GetMapping("{pid}/{uid}")
    public Product getProductDetailsBasedOnUserScope(@PathVariable Long pid, @PathVariable Long uid){
